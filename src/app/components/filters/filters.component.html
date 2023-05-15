@@ -1,0 +1,109 @@
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Click Here To Apply Filters </mat-panel-title>
+    <mat-panel-description>
+      You can filter users based on their age, eyes color, gender, and name
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <form [formGroup]="filterForm">
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Search in names</mat-label>
+        <input matInput type="text" formControlName="query" />
+        <button
+          *ngIf="filterForm.get('query')?.value"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="filterForm.get('query')!.setValue('')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Enter a date range</mat-label>
+
+        <mat-date-range-input formGroupName="range" [rangePicker]="picker">
+          <input
+            matStartDate
+            formControlName="start"
+            placeholder="Start date"
+          />
+          <input matEndDate formControlName="end" placeholder="End date" />
+        </mat-date-range-input>
+
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <h4 class="title">Gender:</h4>
+
+      <div formGroupName="genders">
+        <mat-checkbox class="example-margin" id="male" formControlName="male"
+          >male</mat-checkbox
+        >
+        <mat-checkbox
+          class="example-margin"
+          id="female"
+          formControlName="female"
+          >female</mat-checkbox
+        >
+
+        <mat-checkbox class="example-margin">others</mat-checkbox>
+        <mat-checkbox class="example-margin">prefer not to say</mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row">
+      <h4 class="title">EyeColor:</h4>
+
+      <div formGroupName="eyeColors">
+        <ng-container
+          *ngFor="let colorControl of eyeColorsGroupValue | keyvalue"
+        >
+          <mat-checkbox
+            class="example-margin"
+            [formControlName]="colorControl.key"
+            [value]="colorControl.key"
+          >
+            {{ colorControl.key }}
+          </mat-checkbox>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- <input type="search" formControlName="query" placeholder="search" /> -->
+    <div class="row">
+      <h4 class="title">Age:</h4>
+
+      <mat-radio-group
+        aria-label="Select an option"
+        formControlName="ageCondition"
+        class="flex item-center gap mx"
+      >
+        <mat-radio-button
+          *ngFor="let condition of ageConditions"
+          [value]="condition.value"
+        >
+          {{ condition.label }}
+        </mat-radio-button>
+      </mat-radio-group>
+
+      <mat-form-field appearance="outline">
+        <input
+          matInput
+          type="number"
+          formControlName="age"
+          placeholder="Enter a number to compare with ages"
+        />
+      </mat-form-field>
+    </div>
+  </form>
+</mat-expansion-panel>

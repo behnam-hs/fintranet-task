@@ -1,0 +1,47 @@
+<table mat-table [dataSource]="dataSource">
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+  </ng-container>
+
+  <!-- gender Column -->
+  <ng-container matColumnDef="gender">
+    <th mat-header-cell *matHeaderCellDef>Gender</th>
+    <td mat-cell *matCellDef="let row">{{ row.gender }}</td>
+  </ng-container>
+
+  <!-- fullName Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let row">
+      {{ row.firstName }} {{ row.lastName }}
+    </td>
+  </ng-container>
+
+  <!-- age Column -->
+  <ng-container matColumnDef="age">
+    <th mat-header-cell *matHeaderCellDef>Age</th>
+    <td mat-cell *matCellDef="let row">{{ row.age }}</td>
+  </ng-container>
+
+  <!-- birthDate Column -->
+  <ng-container matColumnDef="birthDate">
+    <th mat-header-cell *matHeaderCellDef>Birth Date</th>
+    <td mat-cell *matCellDef="let row">{{ row.birthDate }}</td>
+  </ng-container>
+
+  <!-- eyeColor Column -->
+  <ng-container matColumnDef="eyeColor">
+    <th mat-header-cell *matHeaderCellDef>Eye Color</th>
+    <td mat-cell *matCellDef="let row">{{ row.eyeColor }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+  <!-- Row shown when there is no matching data. -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No data matching the filter</td>
+  </tr>
+</table>

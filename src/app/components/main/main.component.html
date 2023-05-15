@@ -1,0 +1,28 @@
+<div class="container">
+  <p *ngIf="usersFetchFailed$ | async">
+    Failed to fetch users ! refresh the page
+  </p>
+
+  <!-- Filters Section -->
+  <app-filters
+    [show]="isSidenavOpen"
+    [eyeColors]="eyeColors$ | async"
+    (filtersChanged)="filtersChanged($event)"
+  ></app-filters>
+
+  <!-- Users List Section -->
+  <section class="box-shadow my">
+    <p
+      *ngIf="usersLoading$ | async; else list"
+      class="flex justify-center items-center py"
+    >
+      loading ...
+    </p>
+    <ng-template #list>
+      <app-users-list [dataSource]="matTableDataSource"></app-users-list>
+    </ng-template>
+  </section>
+
+  <!-- Pagination Section -->
+  <app-pagination (matPaginator)="handlePaginator($event)"></app-pagination>
+</div>
